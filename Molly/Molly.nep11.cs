@@ -11,7 +11,7 @@ using System.Numerics;
 
 namespace Neo.SmartContract.Template
 {
-    public partial class Molly
+    public partial class Molly : Nep11Token<PlayerTokenState>, INep24
     {
         private const byte PrefixMinter = 0xfd;
 
@@ -44,20 +44,33 @@ namespace Neo.SmartContract.Template
             OnSetMinter(newMinter);
         }
 
-        public static void Mint(UInt160 to, string playerName, string playerPosition, string league)
+        public static void MultiMint(UInt160 to, ByteString league, string data)
         {
             ExecutionEngine.Assert(DoesLeagueExist(league), "Unknown League");
             ExecutionEngine.Assert(IsOwner() || IsMinter(), "No Authorization!");
-            IncreaseCount();
-            BigInteger tokenId = CurrentCount();
+            List<List<string>> players = (List<List<string>>)StdLib.JsonDeserialize(data);
+
+            for(var i = 0; i < players.Count; i++)
+            {
+                MyMint(to, players[i][0] + " " + players[i][1], players[i][0] + " " + players[i][1], players[i][2], league, players[i][3]);
+            }
+        }
+
+        private static void MyMint(UInt160 to, string tokenId, string playerName, string playerPosition, ByteString league, ByteString img)
+        {
+            // IncreaseCount();
+            // BigInteger counter = CurrentCount();
             var nep11Token = new PlayerTokenState()
             {
                 Name = playerName,
                 Owner = to,
                 Position = playerPosition,
+                Image = img,
                 League = league
             };
-            Mint((ByteString)tokenId + " " + playerName, nep11Token);
+            Mint(tokenId, nep11Token);
+
+            //Transfer to coach
         }
 
         [Safe]

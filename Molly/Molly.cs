@@ -15,11 +15,12 @@ namespace Neo.SmartContract.Template
     [ContractDescription( "<Description Here>")]
     [ContractVersion("<Version String Here>")]
     [ContractPermission(Permission.Any, Method.Any)]
-    [SupportedStandards(NepStandard.Nep11)]
+    [SupportedStandards(NepStandard.Nep24)]
     public partial class Molly : Nep11Token<PlayerTokenState>, INep24
     {
         public new static bool Transfer(UInt160 to, ByteString tokenId, object data)
         {
+            ExecutionEngine.Abort("Not vlaid");
             var tokenMap = new StorageMap(Prefix_Token);
             var token = (PlayerTokenState)StdLib.Deserialize(tokenMap[tokenId]);
             var league = GetLeague(token.League);

@@ -10,7 +10,7 @@ using System.Numerics;
 
 namespace Neo.SmartContract.Template
 {
-    public partial class Molly
+    public partial class Molly : Nep11Token<PlayerTokenState>, INep24
     {
         private const byte Prefix_Coach = 0xab;
 

@@ -11,7 +11,7 @@ using System.Numerics;
 
 namespace Neo.SmartContract.Template
 {
-    public partial class Molly
+    public partial class Molly : Nep11Token<PlayerTokenState>, INep24
     {
         // TODO: Replace "EXAMPLE" with a short name all UPPERCASE 3-8 characters
         public override string Symbol { [Safe] get => "LEAGUE"; }
@@ -37,11 +37,11 @@ namespace Neo.SmartContract.Template
             Storage.Put(Storage.CurrentContext, "Hello", "World");
         }
 
-        public static void Update(ByteString nefFile, string manifest, object? data = null)
+        public static void Update(ByteString nefFile, string manifest)
         {
             if (IsOwner() == false)
                 throw new InvalidOperationException("No authorization.");
-            ContractManagement.Update(nefFile, manifest, data);
+            ContractManagement.Update(nefFile, manifest);
         }
     }
 }

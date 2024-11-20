@@ -11,7 +11,7 @@ using System.Numerics;
 
 namespace Neo.SmartContract.Template
 {
-    public partial class Molly
+    public partial class Molly : Nep11Token<PlayerTokenState>, INep24
     {
         [Safe]
         public static Map<string, object>[] RoyaltyInfo(ByteString tokenId, UInt160 royaltyToken, BigInteger salePrice)

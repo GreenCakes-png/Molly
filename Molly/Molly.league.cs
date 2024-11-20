@@ -11,7 +11,7 @@ using System.Numerics;
 
 namespace Neo.SmartContract.Template
 {
-    public partial class Molly
+    public partial class Molly : Nep11Token<PlayerTokenState>, INep24
     {
         private const byte Prefix_League = 0x0a;
 
@@ -44,7 +44,7 @@ namespace Neo.SmartContract.Template
                 End = EndDate
             };
 
-            Storage.Put((new[] { PrefixMinter }).Concat(League), StdLib.Serialize(leagueState));
+            Storage.Put((new[] { Prefix_League }).Concat(League), StdLib.Serialize(leagueState));
             OnLeagueCreated(League, StartDate, EndDate);
         }
     }

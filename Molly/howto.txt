@@ -1,0 +1,11 @@
+//Set Minter
+invoke 0x13f8550587869a82aa1075aaefd380eb09534290 setMinter [{"type":"Hash160","value":"0x74f219a32adc07fc46fc1b043a5464e23b5997f5"}] 0xecd6dfe54a1093f067c50567459c88ee5567c40d 0xecd6dfe54a1093f067c50567459c88ee5567c40d
+
+
+//League
+invoke 0x13f8550587869a82aa1075aaefd380eb09534290 createLeague [{"type":"String","value":"1-WC"},{"type":"Integer","value":"1732117467"},{"type":"Integer","value":"1734709467"}] 0xecd6dfe54a1093f067c50567459c88ee5567c40d 0xecd6dfe54a1093f067c50567459c88ee5567c40d
+invoke 0x13f8550587869a82aa1075aaefd380eb09534290 getLeague [{"type":"String","value":"1-WC"}]
+
+
+//Mint 
+invoke 0x13f8550587869a82aa1075aaefd380eb09534290 multiMint [{"type":"Hash160","value":"0x74f219a32adc07fc46fc1b043a5464e23b5997f5"},{"type":"String","value":"1-WC"},{"type":"String","value":"[[\"Emiliano\",\"Martinez\",\"Goalkeeper\",\"Img\"],[\"Franco\",\"Armani\",\"Goalkeeper\",\"Img\"],[\"Geronimo\",\"Rulli\",\"Goalkeeper\",\"Img\"],[\"Nahuel\",\"Molina\",\"Defender\",\"Img\"],[\"Gonzalo\",\"Montiel\",\"Defender\",\"Img\"],[\"Cristian\",\"Romero\",\"Defender\",\"Img\"],[\"German\",\"Pezzella\",\"Defender\",\"Img\"],[\"Nicolas\",\"Otamendi\",\"Defender\",\"Img\"],[\"Lisandro\",\"Martinez\",\"Defender\",\"Img\"],[\"Marcos\",\"Acuna\",\"Defender\",\"Img\"],[\"Nicolas\",\"Tagliafico\",\"Defender\",\"Img\"],[\"Juan\",\"Foyth\",\"Defender\",\"Img\"],[\"Leandro\",\"Paredes\",\"Midfielder\",\"Img\"],[\"Guido\",\"Rodriguez\",\"Midfielder\",\"Img\"],[\"Rodrigo\",\"DePaul\",\"Midfielder\",\"Img\"],[\"Exequiel\",\"Palacios\",\"Midfielder\",\"Img\"],[\"Alexis\",\"MacAllister\",\"Midfielder\",\"Img\"],[\"Enzo\",\"Fernandez\",\"Midfielder\",\"Img\"],[\"Angel\",\"DiMaria\",\"Midfielder\",\"Img\"],[\"Lionel\",\"Messi\",\"Forward\",\"Img\"],[\"Paulo\",\"Dybala\",\"Forward\",\"Img\"],[\"Alejandro\",\"Gomez\",\"Forward\",\"Img\"],[\"Lautaro\",\"Martinez\",\"Forward\",\"Img\"],[\"Julian\",\"Alvarez\",\"Forward\",\"Img\"],[\"Joaquin\",\"Correa\",\"Forward\",\"Img\"]]"}] 0xecd6dfe54a1093f067c50567459c88ee5567c40d 0xecd6dfe54a1093f067c50567459c88ee5567c40d
