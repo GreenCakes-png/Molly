@@ -4,7 +4,6 @@ using Neo.SmartContract.Framework.Interfaces;
 using Neo.SmartContract.Framework.Native;
 using Neo.SmartContract.Framework.Services;
 
-using System;
 using System.ComponentModel;
 using System.Numerics;
 
@@ -44,34 +43,47 @@ namespace Neo.SmartContract.Template
             OnSetMinter(newMinter);
         }
 
-        public static void MultiMint(UInt160 to, ByteString league, string data)
+        // public static void MultiMint(ByteString league, string data)
+        // {
+            
+        //     List<List<string>> players = (List<List<string>>)StdLib.JsonDeserialize(data);
+
+        //     for(var i = 0; i < players.Count; i++)
+        //     {
+        //         MyMint(players[i][0] + " " + players[i][1], players[i][0] + " " + players[i][1], players[i][2], league, players[i][3]);
+        //     }
+        // }
+
+        public static ByteString MyMint(string tokenId, string playerName, string playerTeam, string playerPosition, ByteString league, ByteString img)
         {
             ExecutionEngine.Assert(DoesLeagueExist(league), "Unknown League");
-            ExecutionEngine.Assert(IsOwner() || IsMinter(), "No Authorization!");
-            List<List<string>> players = (List<List<string>>)StdLib.JsonDeserialize(data);
+            ExecutionEngine.Assert(Runtime.CallingScriptHash == GetCoach(), "No Authorization!");
 
-            for(var i = 0; i < players.Count; i++)
-            {
-                MyMint(to, players[i][0] + " " + players[i][1], players[i][0] + " " + players[i][1], players[i][2], league, players[i][3]);
-            }
-        }
+            IncreaseCount();
+            BigInteger counter = CurrentCount();
 
-        private static void MyMint(UInt160 to, string tokenId, string playerName, string playerPosition, ByteString league, ByteString img)
-        {
-            // IncreaseCount();
-            // BigInteger counter = CurrentCount();
             var nep11Token = new PlayerTokenState()
             {
                 Name = playerName,
-                Owner = to,
+                Owner = Runtime.CallingScriptHash,
                 Position = playerPosition,
                 Image = img,
-                League = league
+                League = league,
+                Team = playerTeam
             };
-            Mint(tokenId, nep11Token);
-
-            //Transfer to coach
+            Mint(counter + " " + tokenId, nep11Token);
+            return tokenId;
         }
+
+        // private static void TransferToCoach(ByteString tokenId, PlayerTokenState token)
+        // {
+        //     StorageMap tokenMap = new(Storage.CurrentContext, Prefix_Token);
+        //     tokenMap[tokenId] = StdLib.Serialize(token);
+        //     UpdateBalance(token.Owner, tokenId, +1);
+        //     TotalSupply++;
+        //     var operation = new[]{"Init"};
+        //     PostTransfer(null, token.Owner, tokenId, operation);
+        // }
 
         [Safe]
         public static BigInteger CurrentCount()
