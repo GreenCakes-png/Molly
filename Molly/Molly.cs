@@ -57,7 +57,8 @@ namespace Neo.SmartContract.Template
                 ["owner"] = token.Owner,
                 ["position"] = token.Position,
                 ["img"] = token.Image,
-                ["league"] = token.League
+                ["league"] = token.League,
+                ["team"] = token.Team
             };
         }
     }

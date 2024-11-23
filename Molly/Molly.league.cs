@@ -21,14 +21,6 @@ namespace Neo.SmartContract.Template
             return Storage.Get((new[] { Prefix_League }).Concat(League)) != null;
         }
 
-        [Safe]
-        public static LeagueState GetLeague(ByteString League)
-        {
-            var league = Storage.Get((new[] { Prefix_League }).Concat(League));
-            if(league == null) return null;
-            return (LeagueState)StdLib.Deserialize(league);
-        }
-
         public delegate void OnLeagueCreatedDelegate(ByteString League, BigInteger Start, BigInteger End);
 
         [DisplayName("LeagueCreated")]
@@ -36,7 +28,7 @@ namespace Neo.SmartContract.Template
 
         public static void CreateLeague(ByteString League, BigInteger StartDate, BigInteger EndDate)
         {
-            ExecutionEngine.Assert(IsOwner(), "No Authorization!");
+            ExecutionEngine.Assert(Runtime.CallingScriptHash == GetCoach(), "No Authorization!");
 
             var leagueState = new LeagueState
             {
